@@ -28,6 +28,9 @@ const page = () => {
           Search
         </Button>
       </div>
+      <p className="text-red-500">
+        Please input 1 as the order number for demo
+      </p>
     </div>
   );
 };
