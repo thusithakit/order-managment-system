@@ -62,5 +62,23 @@
       "name": "Onion Pizza",
       "ingredients": ["1", "2", "3"]
     }
+  ],
+  "orders": [
+    {
+      "id": "1",
+      "items": [
+        {
+          "id": "0",
+          "name": "Pepperoni Pizza",
+          "quantity": 1
+        },
+        {
+          "id": "1",
+          "name": "Cheesy Pizza",
+          "quantity": 1
+        }
+      ],
+      "progress": "Placed"
+    }
   ]
 }

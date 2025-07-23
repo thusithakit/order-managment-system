@@ -17,8 +17,9 @@ const page = () => {
     { id: "", name: "", ingredients: [] },
   ]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [itemsWithIngredients, setItemsWithIngredients] =
-    useState<ItemWithIngredients>();
+  const [ingredients, setIngredients] = useState<Ingredient[]>([
+    { id: "", name: "", quantity: 0 },
+  ]);
 
   const fetchItems = async () => {
     try {
@@ -31,22 +32,26 @@ const page = () => {
     }
   };
 
-  const fetchIngredients = async (id: number | string) => {
+  const fetchIngredients = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:3001/ingredients/${id}`
-      );
+      const response = await axios.get("http://localhost:3001/ingredients");
+      setIngredients(response.data);
       return response.data;
     } catch (err) {
       console.log(err);
     }
   };
-  const mappedItem = (item: Item) => {
-    item.ingredients.map((item) => fetchIngredients(item));
-  };
-  console.log("mapped itemssss", mappedItem(items[0]));
+  const ingredientMap = Object.fromEntries(
+    ingredients.map((ing) => [ing.id, ing])
+  );
+  const mappedItems = items.map((item) => ({
+    ...items,
+    ingredients: item.ingredients.map((id) => ingredientMap[id]),
+  }));
+  console.log("Mappeddddd", mappedItems);
   useEffect(() => {
     fetchItems();
+    fetchIngredients;
   }, []);
   const remove = async (id: string) => {
     try {
